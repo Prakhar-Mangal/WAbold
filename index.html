@@ -10,14 +10,15 @@
     function generateBold(temp){
         b = []
       
-        if(temp.length <= 2 ){
-            
-            //return "123";
-            console.log(temp,"f")
-            global = temp.join('')
-        }else{
+        if(temp.length == 1){
+                global = temp[0]
+        }else if(temp.length == 2){
+            global = temp[0]+'*'+temp[1]
+        }
+        else{
            //alert('else')
             i = 0;
+          
             //for(i=0;i<=temp.length-1;i++){
                 if(temp[i][temp[i].length-1] == ' '){
                    
@@ -29,7 +30,17 @@
                         if(temp[i+1][temp[i+1].length-1] != ' '){
 
                            
+                            if(temp[i+2][0] == ''){
+                                 //  alert('b')
+                                 b.push(temp[i]+'<b>'+temp[i+1]+'</b>'+temp[i+2]);
+                                 for(j=3;j<=temp.length-1;j++){
+                                   //  alert('b3 push')
+                                     b.push(temp[j])
+                                 }
+                                 generateBold(b)
+                                 //alert(b);
 
+                            }
                             if(temp[i+2][0] == ' '){
                               //  alert('b')
                                 b.push(temp[i]+'<b>'+temp[i+1]+'</b>'+temp[i+2]);
@@ -81,20 +92,18 @@
 
     }
 
-    function give(){
-        usr = '2*4+6 *=* 6*4'
-         //usr = 'ds*da *ggr'
-        //usr = 'dcds *rgrfgdr* tgtghtr'
-         //usr = 'dcds *rgrfgdr*tgtghtr'
-        //usr = 'dcds *rg*rfgdr* tgtghtr *khhk* fbkf'
-
+    function showText(){
+        usr = document.getElementById("usr").value
+        //usr = 'bhindi 
         temp = usr.split('*');
         generateBold(temp)
-       console.log(usr)
-        console.log(global)
+       document.getElementById('show').innerHTML = global
     }
 </script>
-<body onload="give()">
-    
+<body>
+    <input type="text" id="usr" onkeyup="showText()">
+    <div id="show">
+
+    </div>
 </body>
 </html>
