@@ -1,0 +1,80 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script>
+    b = []
+    n = 0;
+
+    String.prototype.replaceAt=function(index, replacement){
+        return this.substr(0, index) + replacement+ this.substr(index + replacement.length);
+    }
+usr = ''
+    function bold(u){
+        usr1 = u;
+        usr = ' '+usr1+' '
+        for(i=0;i<=usr.length-1;i++){
+           // alert(i +'-->'+usr[i])
+            if(usr[i] == '*' && n == 0 && usr[i-1] == ' '){
+                    if(usr[i] == '*' && usr[i+1] == '*' && usr[i+2]== ' ' ){// consecutive
+                        i = i+2;
+                    }else{
+                    
+                    b.push(i)
+                    n = 1;
+                    } 
+            }
+            else if(n == 1 && usr[i] == ' '){
+                b.pop()
+                n = 0
+            }
+            else if(usr[i] == '*' && n == 1 && usr[i+1] == ' '){
+                    b.push(i);
+                    n = 0;
+                
+            }
+        }
+        
+    }
+    str = ''
+    function generate(){
+        j=0;
+        console.log(b)
+       for(i=0;i<usr.length;i++){
+           
+        
+           if(b[j] == i && j%2 == 0){
+               
+               str += '<b>'
+                   j++;
+           }
+           else if(b[j] == i && j%2 !=0){
+               
+                str+= '</b>'
+                j++;
+           }
+           else{
+               str += usr[i];
+           }
+       }
+    }
+    function show(){
+        
+        u = document.getElementById("usr").value;
+        bold(u)
+        generate()
+        document.getElementById("show").innerHTML = str
+        str = ''
+        console.log(b)
+        b = []
+        
+    }
+</script>
+<body>
+    <input type="text" id="usr" onkeyup="show()"><br>
+    <span id="show"></span>
+</body>
+</html>
